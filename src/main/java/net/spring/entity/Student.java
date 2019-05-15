@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import net.spring.listener.StudentLoggerListener;
+import net.spring.listener.StudentCreatableListener;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -20,11 +20,11 @@ import javax.validation.constraints.Min;
 @Getter
 @Setter
 @Entity
-@EntityListeners(StudentLoggerListener.class)
+@EntityListeners(StudentCreatableListener.class)
 @NoArgsConstructor
 @Accessors(chain = true)
 @Table(name = "students")
-public class Student {
+public class Student extends CreatableEntity {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
