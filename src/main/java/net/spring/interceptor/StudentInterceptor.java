@@ -11,8 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 @Component
 public class StudentInterceptor extends HandlerInterceptorAdapter {
-    private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
-
+    private static final Logger LOGGER = LoggerFactory.getLogger("StudentInterceptor");
     @Override
     public boolean preHandle(HttpServletRequest requestServlet,
                              HttpServletResponse responseServlet, Object handler) throws Exception {

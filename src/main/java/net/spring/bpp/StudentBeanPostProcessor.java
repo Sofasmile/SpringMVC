@@ -7,7 +7,7 @@ import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 
 public class StudentBeanPostProcessor implements BeanPostProcessor {
-    private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
+    private static final Logger LOGGER = LoggerFactory.getLogger("StudentBeanPostProcessor");
 
     @Override
     public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
