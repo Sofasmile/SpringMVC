@@ -1,5 +1,6 @@
 package net.spring.controller;
 
+import lombok.RequiredArgsConstructor;
 import net.spring.entity.Student;
 import net.spring.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,21 +9,17 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 import java.util.List;
 
 @Controller
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class AppController {
     private final StudentService service;
-
-    @Autowired
-    public AppController(StudentService service) {
-        this.service = service;
-    }
 
     @GetMapping("/")
     public String viewHomePage(Model model) {
@@ -44,16 +41,16 @@ public class AppController {
         return "redirect:/";
     }
 
-    @GetMapping("/edit")
-    public ModelAndView editStudentForm(@Valid @RequestParam Long id) {
+    @GetMapping("/edit/{id}")
+    public ModelAndView editStudentForm(@Valid @PathVariable(value = "id") Long id) {
         ModelAndView modelAndView = new ModelAndView("edit_student");
         Student student = service.getStudentById(id);
         modelAndView.addObject("student", student);
         return modelAndView;
     }
 
-    @DeleteMapping("/delete")
-    public String deleteStudent(@RequestParam Long id) {
+    @DeleteMapping("/delete/{id}")
+    public String deleteStudent(@PathVariable(value = "id") Long id) {
         service.deleteStudent(id);
         return "redirect:/";
     }

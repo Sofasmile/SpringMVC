@@ -1,5 +1,6 @@
 package net.spring.service;
 
+import lombok.RequiredArgsConstructor;
 import net.spring.entity.Student;
 import net.spring.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,13 +9,9 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class StudentServiceImpl implements StudentService {
     private final StudentRepository repository;
-
-    @Autowired
-    public StudentServiceImpl(StudentRepository repository) {
-        this.repository = repository;
-    }
 
     @Override
     public List<Student> getAllStudents() {
