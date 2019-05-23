@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeLeaf.org">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Student CRUD Operation</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+</head>
+<body>
+<div align="center">
+    <table class="table_2">
+        <caption>Student crud operations</caption>
+        <thead>
+        <tr>
+            <th>Student ID</th>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Course</th>
+            <th>Speciality</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="student : ${listStudents}">
+            <td th:text="${student.id}">Student ID</td>
+            <td th:text="${student.name}">Name</td>
+            <td th:text="${student.age}">Age</td>
+            <td th:text="${student.course}">Course</td>
+            <td th:text="${student.speciality}">Speciality</td>
+            <td>
+                <a class="button" th:href="@{'/edit/' + ${student.id}}">Edit</a>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <a class="button-delete" th:href="@{'/delete/' + ${student.id}}">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <br/>
+    <a class="button" th:href="@{'/new'}">Create new student</a>
+</div>
+</body>
+</html>
