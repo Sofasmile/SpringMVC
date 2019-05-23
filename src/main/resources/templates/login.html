@@ -4,7 +4,7 @@
 
 <head>
     <title>Spring Security</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/login.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/form.css}" />
 </head>
 
 <body>
@@ -13,8 +13,8 @@
 </form>
 
 <div>
-    <form th:action="@{/login}" method="POST" class="form-signin">
-        <h3 class="form-signin-heading" th:text="Welcome"></h3>
+    <form th:action="@{/login}" method="POST" class="form-4">
+        <h3 th:text="Welcome"></h3>
         <br/>
 
         <input type="text" id="userName" name="userName"  th:placeholder="Name"
