@@ -6,7 +6,6 @@ import net.spring.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,27 +20,27 @@ import java.util.List;
 public class AppController {
     private final StudentService service;
 
-    @GetMapping("/")
+    @GetMapping("/students")
     public String viewHomePage(Model model) {
         List<Student> listStudents = service.getAllStudents();
         model.addAttribute("listStudents", listStudents);
         return "index";
     }
 
-    @GetMapping("/new")
+    @GetMapping("/students/new")
     public String createNewStudentForm(@Valid Model model) {
         Student student = new Student();
         model.addAttribute("student", student);
         return "new_student";
     }
 
-    @PostMapping("/save")
+    @PostMapping("/students/save")
     public String saveStudent(@ModelAttribute("student") Student student) {
         service.saveStudent(student);
-        return "redirect:/";
+        return "redirect:/students/";
     }
 
-    @GetMapping("/edit/{id}")
+    @GetMapping("/students/edit/{id}")
     public ModelAndView editStudentForm(@Valid @PathVariable(value = "id") Long id) {
         ModelAndView modelAndView = new ModelAndView("edit_student");
         Student student = service.getStudentById(id);
@@ -49,9 +48,9 @@ public class AppController {
         return modelAndView;
     }
 
-    @GetMapping("/delete/{id}")
+    @GetMapping("/students/delete/{id}")
     public String deleteStudent(@PathVariable(value = "id") Long id) {
         service.deleteStudent(id);
-        return "redirect:/";
+        return "redirect:/students/";
     }
 }

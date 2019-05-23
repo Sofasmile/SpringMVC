@@ -27,15 +27,20 @@
             <td th:text="${student.course}">Course</td>
             <td th:text="${student.speciality}">Speciality</td>
             <td>
-                <a class="button" th:href="@{'/edit/' + ${student.id}}">Edit</a>
+                <a class="button" th:href="@{'/students/edit/' + ${student.id}}">Edit</a>
                 &nbsp;&nbsp;&nbsp;&nbsp;
-                <a class="button-delete" th:href="@{'/delete/' + ${student.id}}">Delete</a>
+                <a class="button-delete" th:href="@{'/students/delete/' + ${student.id}}">Delete</a>
             </td>
         </tr>
         </tbody>
     </table>
     <br/>
-    <a class="button" th:href="@{'/new'}">Create new student</a>
+    <a class="button" th:href="@{'/students/new'}">Create new student</a>
+
+    <form th:action="@{/logout}" method="get">
+        <br/>
+        <button class="button" name="login" type="Submit">Logout</button>
+    </form>
 </div>
 </body>
 </html>
