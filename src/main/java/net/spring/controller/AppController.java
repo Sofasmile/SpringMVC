@@ -49,7 +49,7 @@ public class AppController {
         return modelAndView;
     }
 
-    @DeleteMapping("/delete/{id}")
+    @GetMapping("/delete/{id}")
     public String deleteStudent(@PathVariable(value = "id") Long id) {
         service.deleteStudent(id);
         return "redirect:/";
