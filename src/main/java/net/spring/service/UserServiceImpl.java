@@ -3,6 +3,7 @@ package net.spring.service;
 import lombok.RequiredArgsConstructor;
 import net.spring.entity.user.Role;
 import net.spring.entity.user.User;
+import net.spring.exception.UserNotFoundException;
 import net.spring.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -20,12 +21,13 @@ public class UserServiceImpl implements UserService {
     private static final String ROLE = "USER";
 
     @Override
-    public User findByUserName(String userName) {
-        return userRepository.findByUserName(userName).orElse(null);
+    public User findByName(String userName) {
+        return userRepository.findByUserName(userName)
+                .orElseThrow(UserNotFoundException::new);
     }
 
     @Override
-    public void saveUser(User user) {
+    public void save(User user) {
         Role userRole = roleService.findByRole(ROLE);
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()))
                 .setActive(1)

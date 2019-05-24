@@ -38,14 +38,14 @@ public class LoginController {
     @PostMapping("/registration")
     public ModelAndView createNewUser(User user, BindingResult bindingResult) {
         ModelAndView modelAndView = new ModelAndView();
-        User userExists = userService.findByUserName(user.getUserName());
+        User userExists = userService.findByName(user.getUserName());
         if (Objects.nonNull(userExists)) {
             bindingResult.rejectValue("userName", "error.user", ERROR_MESSAGE);
         }
         if (bindingResult.hasErrors()) {
             modelAndView.setViewName("registration");
         } else {
-            userService.saveUser(user);
+            userService.save(user);
             modelAndView.addObject("successMessage", SUCCESS_MESSAGE)
                     .addObject("user", new User())
                     .setViewName("registration");
