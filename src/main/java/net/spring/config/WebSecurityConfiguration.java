@@ -18,8 +18,8 @@ import javax.sql.DataSource;
 @EnableWebSecurity
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
-    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final DataSource dataSource;
 
     @Value("${spring.queries.users-query}")

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 @Controller
@@ -36,7 +37,7 @@ public class LoginController {
     }
 
     @PostMapping("/registration")
-    public ModelAndView createNewUser(User user, BindingResult bindingResult) {
+    public ModelAndView createNewUser(@NotNull User user, BindingResult bindingResult) {
         ModelAndView modelAndView = new ModelAndView();
         User userExists = userService.findByName(user.getUserName());
         if (Objects.nonNull(userExists)) {

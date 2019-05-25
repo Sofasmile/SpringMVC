@@ -10,37 +10,39 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 import java.util.List;
 
 @Controller
+@RequestMapping("/students")
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class AppController {
     private final StudentService service;
 
-    @GetMapping("/students")
+    @GetMapping
     public String viewHomePage(Model model) {
         List<Student> listStudents = service.getAllStudents();
         model.addAttribute("listStudents", listStudents);
         return "index";
     }
 
-    @GetMapping("/students/new")
+    @GetMapping("/new")
     public String createNewStudentForm(@Valid Model model) {
         Student student = new Student();
         model.addAttribute("student", student);
         return "new_student";
     }
 
-    @PostMapping("/students/save")
+    @PostMapping("/save")
     public String saveStudent(@ModelAttribute("student") Student student) {
         service.saveStudent(student);
         return "redirect:/students/";
     }
 
-    @GetMapping("/students/edit/{id}")
+    @GetMapping("/edit/{id}")
     public ModelAndView editStudentForm(@Valid @PathVariable(value = "id") Long id) {
         ModelAndView modelAndView = new ModelAndView("edit_student");
         Student student = service.getStudentById(id);
@@ -48,7 +50,7 @@ public class AppController {
         return modelAndView;
     }
 
-    @GetMapping("/students/delete/{id}")
+    @GetMapping("/delete/{id}")
     public String deleteStudent(@PathVariable(value = "id") Long id) {
         service.deleteStudent(id);
         return "redirect:/students/";
