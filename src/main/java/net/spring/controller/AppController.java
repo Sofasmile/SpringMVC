@@ -6,22 +6,23 @@ import net.spring.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 import java.util.List;
 
 @Controller
+@RequestMapping("/students")
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class AppController {
     private final StudentService service;
 
-    @GetMapping("/")
+    @GetMapping
     public String viewHomePage(Model model) {
         List<Student> listStudents = service.getAllStudents();
         model.addAttribute("listStudents", listStudents);
@@ -38,7 +39,7 @@ public class AppController {
     @PostMapping("/save")
     public String saveStudent(@ModelAttribute("student") Student student) {
         service.saveStudent(student);
-        return "redirect:/";
+        return "redirect:/students/";
     }
 
     @GetMapping("/edit/{id}")
@@ -49,9 +50,9 @@ public class AppController {
         return modelAndView;
     }
 
-    @DeleteMapping("/delete/{id}")
+    @GetMapping("/delete/{id}")
     public String deleteStudent(@PathVariable(value = "id") Long id) {
         service.deleteStudent(id);
-        return "redirect:/";
+        return "redirect:/students/";
     }
 }

@@ -1,0 +1,37 @@
+package net.spring.service;
+
+import lombok.RequiredArgsConstructor;
+import net.spring.entity.user.Role;
+import net.spring.entity.user.User;
+import net.spring.exception.UserNotFoundException;
+import net.spring.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Service;
+
+import java.util.Arrays;
+import java.util.HashSet;
+
+@Service
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
+public class UserServiceImpl implements UserService {
+    private final UserRepository userRepository;
+    private final RoleService roleService;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private static final String ROLE = "USER";
+
+    @Override
+    public User findByName(String userName) {
+        return userRepository.findByUserName(userName)
+                .orElseThrow(UserNotFoundException::new);
+    }
+
+    @Override
+    public void save(User user) {
+        Role userRole = roleService.findByRole(ROLE);
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()))
+                .setActive(true)
+                .setRoles(new HashSet<>(Arrays.asList(userRole)));
+        userRepository.save(user);
+    }
+}
